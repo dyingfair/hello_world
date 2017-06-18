@@ -54,7 +54,7 @@ while begin_date <= end_date:
             continue
         stock_name = items[2].get_text()
 
-        # for python   8570.63 * 10000 = 85706299.99999999
+        # for python   8570.63 * 10000 = 85706299.99999999, so we need the metho round
 
         if -1 != items[6].get_text().find('亿'):
             stock_total = round(float(items[6].get_text()[0:-1]) * 10000, 2)

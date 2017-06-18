@@ -30,6 +30,10 @@ head = {
 begin_date = datetime.datetime(2017,1,1)
 end_date = datetime.datetime.today()
 while begin_date <= end_date:
+    begin_date += datetime.timedelta(days=1)
+    if begin_date.isoweekday() > 5:
+        print("the day is offwork")
+        continue
     date_str = begin_date.strftime("%Y-%m-%d")
     url_all = url_prefix + date_str + ".html"
     print(url_all)
@@ -46,6 +50,8 @@ while begin_date <= end_date:
         # print(tab_tmp.get_text())float(items[6].get_text()[0:-1])
         items = tab_tmp.find_all('td')
         stock_num = items[1].get_text()
+        if 6 != len(stock_num):
+            continue
         stock_name = items[2].get_text()
 
         # for python   8570.63 * 10000 = 85706299.99999999
@@ -73,7 +79,6 @@ while begin_date <= end_date:
 
         print(stock_num, stock_name,stock_total,stock_in,stock_out)
         insertStockInfo([stock_num, stock_name,stock_total,stock_in,stock_out])
-    begin_date += datetime.timedelta(days=1)
 
 stock_datas.sort(key=lambda x:x[2])
 with open("stock_data.csv","w+") as stock_file:

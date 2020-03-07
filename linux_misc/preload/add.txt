@@ -1,0 +1,4 @@
+gcc -shared -fPIC -ldl -o libpreload.so preload.c
+gcc testpreload.c -o main
+export LD_PRELOAD=`pwd`/libpreload.so
+export LD_LIBRARY_PATH=./ (optional)
